@@ -5,11 +5,12 @@ import { Flight } from '../model/flight';
 import { FormsModule } from '@angular/forms';
 import { FlightService } from './flight.service';
 import { CityPipe } from '../shared/city.pipe';
+import { FlightCardComponent } from '../flight-card/flight-card.component';
 
 @Component({
   selector: 'app-flight-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, CityPipe],
+  imports: [CommonModule, FormsModule, CityPipe, FlightCardComponent],
   templateUrl: './flight-search.component.html',
   styleUrls: ['./flight-search.component.css'],
 })
@@ -20,6 +21,11 @@ export class FlightSearchComponent {
   selectedFlight: Flight | undefined;
 
   private flightService = inject(FlightService);
+
+  basket: Record<number, boolean> = {
+    3: true,
+    5: true,
+  };
 
   search(): void {
     // Reset properties

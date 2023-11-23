@@ -1,0 +1,33 @@
+<div [ngClass]="{ selected: selected }" class="card">
+  <div class="card-header">
+    <h2 class="title">
+      {{ item.from | city : "short" }} - {{ item.to | city : "long" }}
+    </h2>
+  </div>
+
+  <div class="card-body">
+    <p>Flight-No.: #{{ item.id }}</p>
+    <p>Date: {{ item.date | date : "dd.MM.yyyy HH:mm" }}</p>
+
+    <p>
+      <button class="btn btn-link" (click)="item.delayed = !item.delayed">
+        <small>Toggle status</small>
+      </button>
+    </p>
+    <p [ngStyle]="{ color: item.delayed ? 'red' : 'green' }">
+      <span *ngIf="!item.delayed">On schedule</span>
+      <marquee *ngIf="item.delayed">Delayed ... Delayed ... Delayed</marquee>
+    </p>
+
+    <ng-content select=".middle"></ng-content>
+
+    <p>
+      <button (click)="selectedChange.emit(!selected)" class="btn btn-default">
+        <span *ngIf="!selected">Select</span>
+        <span *ngIf="selected">Remove</span>
+      </button>
+    </p>
+
+    <ng-content select=".bottom"></ng-content>
+  </div>
+</div>
